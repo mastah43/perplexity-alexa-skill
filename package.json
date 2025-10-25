@@ -1,0 +1,41 @@
+{
+  "name": "perplexity-alexa-skill",
+  "version": "1.0.0",
+  "description": "Alexa skill that forwards user queries to Perplexity AI",
+  "main": "lambda/index.js",
+  "scripts": {
+    "setup": "node scripts/setup-config.js",
+    "setup:aws": "scripts/aws-secrets-setup.sh",
+    "setup:iam": "scripts/setup-iam.sh",
+    "test": "jest --config test/jest.config.js",
+    "test:watch": "jest --config test/jest.config.js --watch",
+    "test:coverage": "jest --config test/jest.config.js --coverage",
+    "deploy": "ask deploy",
+    "deploy:skill": "scripts/deploy-skill.sh",
+    "test:alexa": "scripts/test-alexa.sh",
+    "build": "npm install",
+    "dev:start": "cd local-dev && npm install && npm start",
+    "dev:watch": "cd local-dev && npm install && npm run dev",
+    "dev:test": "cd local-dev && node test-requests.js",
+    "sam:start": "sam local start-api --parameter-overrides PerplexityApiKey=$PERPLEXITY_API_KEY",
+    "sam:invoke": "sam local invoke PerplexityAlexaSkillFunction --event test/fixtures/alexa-launch-request.json",
+    "cdk:deploy": "cd infrastructure && ./deploy.sh",
+    "cdk:destroy": "cd infrastructure && ./destroy.sh",
+    "cdk:synth": "cd infrastructure && npm run synth",
+    "cdk:diff": "cd infrastructure && npm run diff"
+  },
+  "keywords": ["alexa", "skill", "perplexity", "ai"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk-core": "^2.13.0",
+    "ask-sdk-model": "^1.35.1",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "ask-cli": "^2.30.4",
+    "jest": "^29.5.0",
+    "@types/jest": "^29.4.0",
+    "dotenv": "^16.3.1"
+  }
+}

@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Perplexity Alexa Skill SAM template for local development
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+
+Parameters:
+  PerplexityApiKey:
+    Type: String
+    Description: Perplexity AI API key for local development
+    Default: "your-api-key-here"
+
+Resources:
+  PerplexityAlexaSkillFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: perplexity-alexa-skill-local
+      CodeUri: lambda/
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Environment:
+        Variables:
+          PERPLEXITY_API_KEY: !Ref PerplexityApiKey
+      Events:
+        AlexaSkillEvent:
+          Type: AlexaSkill
+        HttpApi:
+          Type: HttpApi
+          Properties:
+            Path: /lambda
+            Method: post
+
+Outputs:
+  PerplexityAlexaSkillFunction:
+    Description: "Perplexity Alexa Skill Lambda Function ARN"
+    Value: !GetAtt PerplexityAlexaSkillFunction.Arn
+  PerplexityAlexaSkillFunctionIamRole:
+    Description: "Implicit IAM Role created for Perplexity Alexa Skill function"
+    Value: !GetAtt PerplexityAlexaSkillFunctionRole.Arn

@@ -1,0 +1,51 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "perplexity search",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AskPerplexityIntent",
+                    "slots": [
+                        {
+                            "name": "query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "{query}",
+                        "search for {query}",
+                        "tell me about {query}",
+                        "what is {query}",
+                        "explain {query}",
+                        "find information about {query}",
+                        "look up {query}",
+                        "I want to know about {query}",
+                        "can you tell me {query}",
+                        "help me understand {query}"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "perplexity-alexa-skill-lambda",
+  "version": "1.0.0",
+  "description": "Lambda function for Perplexity Alexa Skill",
+  "main": "index.js",
+  "dependencies": {
+    "ask-sdk-core": "^2.13.0",
+    "ask-sdk-model": "^1.35.1",
+    "axios": "^1.6.0",
+    "aws-sdk": "^2.1467.0"
+  }
+}

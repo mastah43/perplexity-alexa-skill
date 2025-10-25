@@ -1,0 +1,61 @@
+{
+    "manifest": {
+        "publishingInformation": {
+            "locales": {
+                "en-US": {
+                    "summary": "Get answers to your questions using Perplexity AI",
+                    "examplePhrases": [
+                        "Alexa, open perplexity search",
+                        "Alexa, ask perplexity search what is artificial intelligence",
+                        "Alexa, ask perplexity search to tell me about climate change"
+                    ],
+                    "keywords": [
+                        "search",
+                        "ai",
+                        "perplexity",
+                        "questions",
+                        "answers",
+                        "research"
+                    ],
+                    "name": "Perplexity Search",
+                    "description": "Use Perplexity AI to get comprehensive answers to your questions. Simply ask any question and get intelligent responses powered by advanced AI technology.",
+                    "largeIconUri": "file://assets/large-icon.png",
+                    "smallIconUri": "file://assets/small-icon.png"
+                }
+            },
+            "isAvailableWorldwide": false,
+            "testingInstructions": "To test this skill, you'll need to provide a valid Perplexity API key as an environment variable PERPLEXITY_API_KEY.",
+            "category": "KNOWLEDGE_AND_TRIVIA",
+            "distributionCountries": ["US"]
+        },
+        "apis": {
+            "custom": {
+                "endpoint": {
+                    "uri": "arn:aws:lambda:us-east-1:123456789012:function:perplexity-alexa-skill"
+                },
+                "interfaces": [],
+                "regions": {
+                    "NA": {
+                        "endpoint": {
+                            "uri": "arn:aws:lambda:us-east-1:123456789012:function:perplexity-alexa-skill"
+                        }
+                    }
+                }
+            }
+        },
+        "manifestVersion": "1.0",
+        "permissions": [],
+        "privacyAndCompliance": {
+            "allowsPurchases": false,
+            "locales": {
+                "en-US": {
+                    "privacyPolicyUrl": "",
+                    "termsOfUseUrl": ""
+                }
+            },
+            "isExportCompliant": true,
+            "isChildDirected": false,
+            "usesPersonalInfo": false
+        }
+    }
+}

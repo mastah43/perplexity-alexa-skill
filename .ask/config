@@ -1,0 +1,15 @@
+{
+    "deploy_settings": {
+        "default": {
+            "skill_metadata": {
+                "src": "./skill-package",
+                "last_deploy_hash": "@ask-cli/dfn-deployer-hash"
+            },
+            "code": {
+                "default": {
+                    "src": "./lambda"
+                }
+            }
+        }
+    }
+}
