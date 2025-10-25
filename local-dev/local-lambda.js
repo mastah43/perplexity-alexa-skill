@@ -24,7 +24,7 @@ app.post('/lambda', async (req, res) => {
             callbackWaitsForEmptyEventLoop: false,
             functionName: 'perplexity-alexa-skill-local',
             functionVersion: '$LATEST',
-            invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:perplexity-alexa-skill-local',
+            invokedFunctionArn: 'arn:aws:lambda:eu-central-1:123456789012:function:perplexity-alexa-skill-local',
             memoryLimitInMB: '256',
             awsRequestId: 'local-' + Date.now(),
             logGroupName: '/aws/lambda/perplexity-alexa-skill-local',

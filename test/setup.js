@@ -15,7 +15,7 @@ global.createMockContext = () => ({
   callbackWaitsForEmptyEventLoop: false,
   functionName: 'perplexity-alexa-skill-test',
   functionVersion: '$LATEST',
-  invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:perplexity-alexa-skill-test',
+  invokedFunctionArn: 'arn:aws:lambda:eu-central-1:123456789012:function:perplexity-alexa-skill-test',
   memoryLimitInMB: '256',
   awsRequestId: 'test-request-id',
   logGroupName: '/aws/lambda/perplexity-alexa-skill-test',

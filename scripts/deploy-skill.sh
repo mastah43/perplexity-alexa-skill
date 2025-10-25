@@ -42,7 +42,7 @@ aws lambda add-permission \
     --action lambda:InvokeFunction \
     --principal alexa-appkit.amazon.com \
     --event-source-token "$SKILL_ID" \
-    --region "${AWS_DEFAULT_REGION:-us-east-1}" \
+    --region "${AWS_DEFAULT_REGION:-eu-central-1}" \
     || echo "Permission already exists or failed to add"
 
 echo "🎉 Deployment completed!"

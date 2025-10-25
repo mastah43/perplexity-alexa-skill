@@ -14,7 +14,7 @@ fi
 
 # Check if CDK is bootstrapped
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-REGION=${CDK_DEFAULT_REGION:-us-east-1}
+REGION=${CDK_DEFAULT_REGION:-eu-central-1}
 
 echo "📋 Account ID: $ACCOUNT_ID"
 echo "🌍 Region: $REGION"

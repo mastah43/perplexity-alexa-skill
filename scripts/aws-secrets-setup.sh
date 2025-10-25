@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 SECRET_NAME="perplexity-alexa-skill/api-key"
-REGION=${AWS_DEFAULT_REGION:-us-east-1}
+REGION=${AWS_DEFAULT_REGION:-eu-central-1}
 
 echo -e "${CYAN}🔐 AWS Secrets Manager Setup${NC}"
 echo -e "${CYAN}=============================${NC}"
