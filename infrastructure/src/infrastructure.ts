@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { PerplexityAlexaSkillStack } from '../lib/perplexity-alexa-skill-stack';
+import { PerplexityAlexaSkillStack } from './perplexity-alexa-skill-stack';
 
 const app = new cdk.App();
 
