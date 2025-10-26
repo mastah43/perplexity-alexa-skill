@@ -46,6 +46,7 @@ Thumbs.db
 cdk.out/
 infrastructure/cdk.out/
 infrastructure/node_modules/
+infrastructure/bin/
 
 # SAM specific
 .aws-sam/
