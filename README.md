@@ -11,10 +11,17 @@ An Alexa skill that forwards user queries to the Perplexity AI API and reads bac
 
 ## Prerequisites
 
-- Node.js 14+ 
+- Node.js 14+
 - AWS CLI configured with appropriate IAM permissions (see [AWS IAM Requirements](#aws-iam-requirements))
 - ASK CLI installed (`npm install -g ask-cli`)
 - Perplexity AI API key (get from [Perplexity AI Settings](https://www.perplexity.ai/settings/api))
+
+### AWS IAM permissions
+
+The AWS user/role running CDK deployment needs the following permissions:
+Create a custom IAM policy with the permissions as defined in the [aws-iam-policy.json](aws-iam-policy.json).
+The policy could be created with name 'alexa-perplexity-cdk' and assigned to AWS IAM user 'alexa-perplexity-cdk'.
+See section "AWS IAM Requirements" below for detailed instructions on setting up IAM permissions.
 
 ## Security
 
@@ -46,6 +53,13 @@ npm run setup:aws
 ```
 
 ### 3. Deploy Infrastructure
+
+Bootstrap AWS CDK for the AWS account (if not already done)
+```bash
+cdk bootstrap aws://<your AWS account id>/<AWS region>
+```
+
+Deploy AWS infrastructure via AWS CDK
 ```bash
 npm run cdk:deploy
 ```
@@ -143,110 +157,9 @@ See [SECURITY.md](SECURITY.md) for complete security guidelines.
 
 ## AWS IAM Requirements
 
-The AWS user/role running CDK deployment needs the following permissions:
-
-Create a custom IAM policy with the following permissions.
+The AWS user/role running CDK deployment needs respective permissions.
+For this, create a custom IAM policy with the permissions in file [aws-iam-policy.json](aws-iam-policy.json).
 The policy could be created with name 'alexa-perplexity-cdk' and assigned to AWS IAM user 'alexa-perplexity-cdk'.
-
-<details>
-<summary>Click to view CDK Deployment Policy JSON</summary>
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "cloudformation:*"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "lambda:*"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iam:CreateRole",
-        "iam:DeleteRole",
-        "iam:GetRole",
-        "iam:PassRole",
-        "iam:AttachRolePolicy",
-        "iam:DetachRolePolicy",
-        "iam:PutRolePolicy",
-        "iam:DeleteRolePolicy",
-        "iam:GetRolePolicy",
-        "iam:TagRole",
-        "iam:UntagRole"
-      ],
-      "Resource": [
-        "arn:aws:iam::*:role/PerplexityAlexaSkillStack-*",
-        "arn:aws:iam::*:role/cdk-*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "secretsmanager:CreateSecret",
-        "secretsmanager:DescribeSecret",
-        "secretsmanager:GetSecretValue",
-        "secretsmanager:PutSecretValue",
-        "secretsmanager:UpdateSecret",
-        "secretsmanager:TagResource"
-      ],
-      "Resource": "arn:aws:secretsmanager:*:*:secret:perplexity-alexa-skill/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:DeleteLogGroup",
-        "logs:DescribeLogGroups",
-        "logs:PutRetentionPolicy",
-        "logs:TagLogGroup",
-        "logs:UntagLogGroup"
-      ],
-      "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/perplexity-alexa-skill*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:DeleteObject",
-        "s3:ListBucket"
-      ],
-      "Resource": [
-        "arn:aws:s3:::cdk-*",
-        "arn:aws:s3:::cdk-*/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "sts:AssumeRole"
-      ],
-      "Resource": "arn:aws:iam::*:role/cdk-*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ssm:GetParameter",
-        "ssm:PutParameter",
-        "ssm:DeleteParameter"
-      ],
-      "Resource": "arn:aws:ssm:*:*:parameter/cdk-bootstrap/*"
-    }
-  ]
-}
-```
-
-</details>
 
 ### Setting Up IAM User
 
@@ -263,7 +176,7 @@ The policy could be created with name 'alexa-perplexity-cdk' and assigned to AWS
    aws iam attach-user-policy --user-name perplexity-alexa-deployer \
      --policy-arn arn:aws:iam::aws:policy/IAMFullAccess
    
-   # Option 2: Custom policy (save JSON above as policy.json)
+   # Option 2: Custom policy
    aws iam create-policy --policy-name PerplexityAlexaDeployPolicy \
      --policy-document file://policy.json
    aws iam attach-user-policy --user-name perplexity-alexa-deployer \

@@ -17,6 +17,7 @@ The CDK stack deploys:
 - AWS CLI configured with appropriate credentials
 - Node.js 14+
 - CDK CLI installed (`npm install -g aws-cdk`)
+- CDK is boostrapped, see also [readme in project root](../README.md) in section "setup"
 
 ## Deployment
 
