@@ -60,7 +60,7 @@ export class PerplexityAlexaSkillStack extends cdk.Stack {
     alexaSkillFunction.addPermission('AlexaSkillTrigger', {
       principal: new iam.ServicePrincipal('alexa-appkit.amazon.com'),
       action: 'lambda:InvokeFunction',
-      eventSourceToken: this.node.tryGetContext('alexaSkillId') || 'amzn1.ask.skill.[skill-id-placeholder]',
+      eventSourceToken: this.node.tryGetContext('alexaSkillId') || 'amzn1.ask.skill.skill-id-placeholder',
     });
 
     // Outputs
