@@ -1,6 +1,9 @@
 import * as Alexa from 'ask-sdk-core';
 import { RequestEnvelope, Response } from 'ask-sdk-model';
-import axios from 'axios';
+import { PerplexityResource } from './PerplexityResource';
+
+// Initialize Perplexity resource
+const perplexityResource = new PerplexityResource();
 
 /**
  * Handler for LaunchRequest - when user opens the skill without a specific intent
@@ -41,7 +44,7 @@ const AskPerplexityIntentHandler: Alexa.RequestHandler = {
         }
 
         try {
-            const response = await queryPerplexity(query);
+            const response = await perplexityResource.query(query);
             const speakOutput = response || 'I couldn\'t find an answer to your question. Please try asking something else.';
 
             return handlerInput.responseBuilder
@@ -161,67 +164,6 @@ const ErrorHandler: Alexa.ErrorHandler = {
             .getResponse();
     }
 };
-
-/**
- * Interface for Perplexity API response
- */
-interface PerplexityResponse {
-    choices: Array<{
-        message: {
-            content: string;
-        };
-    }>;
-}
-
-/**
- * Query Perplexity AI API
- * @param query - The user's question
- * @returns The AI-generated response
- */
-async function queryPerplexity(query: string): Promise<string> {
-    let apiKey = process.env.PERPLEXITY_API_KEY;
-
-    // If using AWS Secrets Manager
-    if (process.env.PERPLEXITY_API_SECRET_NAME && !apiKey) {
-        const AWS = require('aws-sdk');
-        const secretsManager = new AWS.SecretsManager();
-
-        try {
-            const secretValue = await secretsManager.getSecretValue({
-                SecretId: process.env.PERPLEXITY_API_SECRET_NAME
-            }).promise();
-
-            const secret = JSON.parse(secretValue.SecretString);
-            apiKey = secret.apiKey;
-        } catch (error) {
-            console.error('Error retrieving API key from Secrets Manager:', error);
-            throw new Error('Failed to retrieve API key');
-        }
-    }
-
-    if (!apiKey) {
-        throw new Error('Perplexity API key not configured');
-    }
-
-    const response = await axios.post<PerplexityResponse>('https://api.perplexity.ai/chat/completions', {
-        model: "sonar",
-        messages: [
-            {
-                role: 'user',
-                content: query
-            }
-        ],
-        max_tokens: 150,
-        temperature: 0.2
-    }, {
-        headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-        }
-    });
-
-    return response.data.choices[0].message.content;
-}
 
 /**
  * Lambda handler for Alexa skill
