@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# use local environment variables
+source ../.env
+
 # Deploy script for Perplexity Alexa Skill CDK infrastructure
 
 set -e
@@ -42,7 +45,8 @@ cd ../lambda && npm install && cd ../infrastructure
 
 # Deploy the stack
 echo "🚀 Deploying CDK stack..."
-npx cdk deploy --require-approval never
+echo "Using Alexa Skill ID: $SKILL_ID"
+npx cdk deploy -c alexaSkillId=$SKILL_ID --require-approval never
 
 echo "✅ Deployment completed!"
 echo ""

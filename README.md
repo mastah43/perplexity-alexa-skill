@@ -40,7 +40,20 @@ See [SECURITY.md](SECURITY.md) for detailed security guidelines.
 npm install
 ```
 
-### 2. Configure API Key
+### 2. Configure Environment Variables
+
+Copy the example environment file and edit it with your credentials:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` and set:
+
+- **PERPLEXITY_API_KEY**: Your Perplexity AI API key from [Perplexity AI Settings](https://www.perplexity.ai/settings/api)
+- **SKILL_ID**: Your Alexa Skill ID from the Alexa Developer Console (format: `amzn1.ask.skill.XXXXXXXX`)
+
+#### Alternative: Interactive Setup for API Key
 
 **For Local Development:**
 ```bash
@@ -51,6 +64,8 @@ npm run setup
 ```bash
 npm run setup:aws
 ```
+
+**Note:** The interactive setup scripts configure the API key but not the SKILL_ID. You must manually add SKILL_ID to your `.env` file.
 
 ### 3. Deploy Infrastructure
 
