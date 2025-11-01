@@ -56,11 +56,13 @@ Then edit `.env` and set:
 #### Alternative: Interactive Setup for API Key
 
 **For Local Development:**
+
 ```bash
 npm run setup
 ```
 
 **For Production (AWS Secrets Manager):**
+
 ```bash
 npm run setup:aws
 ```
@@ -70,16 +72,20 @@ npm run setup:aws
 ### 3. Deploy Infrastructure
 
 Bootstrap AWS CDK for the AWS account (if not already done)
+
 ```bash
 cdk bootstrap aws://<your AWS account id>/<AWS region>
 ```
 
 Deploy AWS infrastructure via AWS CDK
+
 ```bash
-npm run cdk:deploy
+cd infrastructure
+./deploy.sh
 ```
 
-### 4. Deploy Alexa Skill
+### 4. Deploy Alexa Skill Configuration (not the AWS infrastructure)
+
 ```bash
 npm run deploy
 ```
@@ -87,6 +93,7 @@ npm run deploy
 ## Usage
 
 Once deployed, you can interact with the skill by saying:
+
 - "Alexa, open perplexity search"
 - "Alexa, ask perplexity search what is artificial intelligence"
 - "Alexa, ask perplexity search to tell me about climate change"
@@ -100,6 +107,7 @@ Once deployed, you can interact with the skill by saying:
 ## Local Development
 
 ### Quick Start
+
 ```bash
 # Install dependencies
 npm install
@@ -117,6 +125,7 @@ npm run dev:test
 ### Testing Options
 
 **Jest Unit/Integration Tests:**
+
 ```bash
 npm test                # Run all tests
 npm run test:watch     # Watch mode
@@ -124,12 +133,14 @@ npm run test:coverage  # With coverage report
 ```
 
 **HTTP Testing:**
+
 ```bash
 npm run dev:start      # Start local server
 npm run dev:test       # Test HTTP endpoints
 ```
 
 **SAM CLI Testing:**
+
 ```bash
 npm run sam:start      # Start with API Gateway
 npm run sam:invoke     # Direct function invocation
@@ -153,16 +164,19 @@ npm run sam:invoke     # Direct function invocation
 ## Configuration Management
 
 ### Local Development
+
 - Interactive setup: `npm run setup`
 - Manual setup: Copy `.env.example` to `.env` and edit
 - Environment variables loaded automatically
 
 ### Production
+
 - AWS Secrets Manager: `npm run setup:aws`
 - Encrypted storage with IAM access control
 - Automatic retrieval by Lambda function
 
 ### Security Features
+
 - `.gitignore` protects sensitive files
 - API key validation and testing
 - Secure input (hidden passwords)
@@ -179,11 +193,13 @@ The policy could be created with name 'alexa-perplexity-cdk' and assigned to AWS
 ### Setting Up IAM User
 
 1. **Create IAM User:**
+
    ```bash
    aws iam create-user --user-name perplexity-alexa-deployer
    ```
 
 2. **Attach Policy (choose one option above):**
+
    ```bash
    # Option 1: Managed policies
    aws iam attach-user-policy --user-name perplexity-alexa-deployer \
@@ -199,11 +215,13 @@ The policy could be created with name 'alexa-perplexity-cdk' and assigned to AWS
    ```
 
 3. **Create Access Keys:**
+
    ```bash
    aws iam create-access-key --user-name perplexity-alexa-deployer
    ```
 
 4. **Configure AWS CLI:**
+
    ```bash
    aws configure
    # Enter the access key ID and secret key from step 3
@@ -236,12 +254,14 @@ npm run setup:iam
 ```
 
 This interactive script will:
+
 - Create an IAM user named `perplexity-alexa-deployer`
 - Let you choose between managed policies, custom policy, or admin access
 - Create access keys
 - Provide next steps for AWS CLI configuration
 
 **Manual IAM Policy Creation:**
+
 ```bash
 # Create the policy using the provided JSON file
 aws iam create-policy --policy-name PerplexityAlexaDeployPolicy \
