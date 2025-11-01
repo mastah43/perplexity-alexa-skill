@@ -162,7 +162,7 @@ async function queryPerplexity(query) {
     }
     
     const response = await axios.post('https://api.perplexity.ai/chat/completions', {
-        model: 'llama-3.1-sonar-small-128k-online',
+        model: "sonar",
         messages: [
             {
                 role: 'user',
@@ -170,8 +170,7 @@ async function queryPerplexity(query) {
             }
         ],
         max_tokens: 150,
-        temperature: 0.2,
-        top_p: 0.9
+        temperature: 0.2
     }, {
         headers: {
             'Authorization': `Bearer ${apiKey}`,
