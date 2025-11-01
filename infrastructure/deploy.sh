@@ -39,9 +39,12 @@ npm install
 echo "🔨 Building TypeScript..."
 npm run build
 
-# Install Lambda dependencies
+# Install Lambda dependencies and build TypeScript
 echo "📦 Installing Lambda dependencies..."
 cd ../lambda && npm install && cd ../infrastructure
+
+echo "🔨 Compiling Lambda TypeScript..."
+cd ../lambda && npm run build && cd ../infrastructure
 
 # Deploy the stack
 echo "🚀 Deploying CDK stack..."

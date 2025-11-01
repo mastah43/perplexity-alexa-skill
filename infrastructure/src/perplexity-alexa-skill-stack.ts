@@ -35,11 +35,28 @@ export class PerplexityAlexaSkillStack extends cdk.Stack {
     perplexityApiSecret.grantRead(lambdaRole);
 
     // Create Lambda function
+    // Bundle from the lambda root directory to include both dist/ and node_modules/
     const alexaSkillFunction = new lambda.Function(this, 'PerplexityAlexaSkillFunction', {
       functionName: 'perplexity-alexa-skill',
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda'), {
+        bundling: {
+          image: lambda.Runtime.NODEJS_18_X.bundlingImage,
+          command: [
+            'bash', '-c',
+            [
+              'echo "Installing production dependencies..."',
+              'cp package.json package-lock.json /asset-output/',
+              'cd /asset-output',
+              'npm ci --omit=dev --quiet --cache /tmp/npm-cache',
+              'echo "Copying compiled Lambda code..."',
+              'cp -r /asset-input/dist/* /asset-output/',
+              'echo "Lambda bundle complete"',
+            ].join(' && '),
+          ],
+        },
+      }),
       role: lambdaRole,
       timeout: cdk.Duration.seconds(30),
       memorySize: 256,

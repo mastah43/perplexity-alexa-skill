@@ -26,6 +26,13 @@ dist/
 build/
 coverage/
 
+# Lambda TypeScript build output
+lambda/dist/
+lambda/**/*.js
+lambda/**/*.d.ts
+lambda/**/*.js.map
+!lambda/index.js
+
 # IDE and editor files
 .vscode/
 .idea/

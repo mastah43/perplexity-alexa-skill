@@ -32,21 +32,35 @@ This is a Perplexity Alexa Skill that forwards user queries to the Perplexity AI
 - `npm run sam:invoke` - Invoke Lambda function directly
 
 ### CDK Infrastructure
+
 - `npm run cdk:deploy` - Deploy AWS infrastructure using CDK
 - `npm run cdk:destroy` - Destroy AWS infrastructure
 - `npm run cdk:synth` - Generate CloudFormation template
 - `npm run cdk:diff` - View infrastructure changes
 
+### Lambda TypeScript Development
+
+- `cd lambda && npm run build` - Compile TypeScript to JavaScript
+- `cd lambda && npm run build:watch` - Auto-compile on file changes
+- `cd lambda && npm run clean` - Remove compiled dist/ folder
+
+**Important**: The Lambda function is written in TypeScript. Source code is in `lambda/src/`, and compiled JavaScript output goes to `lambda/dist/`. The deployment process automatically compiles TypeScript before deploying.
+
 ## Architecture
 
-- **lambda/index.js** - Main Lambda function handler with Alexa SDK integration
+- **lambda/** - Lambda function (TypeScript)
+  - **src/index.ts** - Main Lambda function handler with Alexa SDK integration (TypeScript source)
+  - **dist/** - Compiled JavaScript output (excluded from git)
+  - **tsconfig.json** - TypeScript configuration
+  - **package.json** - Lambda dependencies and build scripts
 - **skill-package/** - Alexa skill configuration
   - **interactionModels/custom/en-US.json** - Voice interaction model and intents
   - **skill.json** - Skill manifest with metadata and configuration
 - **.ask/** - ASK CLI deployment configuration
 - **infrastructure/** - AWS CDK infrastructure as code
-  - **lib/perplexity-alexa-skill-stack.ts** - CDK stack definition
-  - **bin/infrastructure.ts** - CDK app entry point
+  - **src/perplexity-alexa-skill-stack.ts** - CDK stack definition
+  - **src/infrastructure.ts** - CDK app entry point
+  - **deploy.sh** - Automated deployment script with TypeScript compilation
 - **local-dev/** - Local development and testing tools
   - **local-lambda.js** - Express server wrapping Lambda function
   - **test-requests.js** - HTTP test suite
@@ -63,6 +77,18 @@ This is a Perplexity Alexa Skill that forwards user queries to the Perplexity AI
 - **queryPerplexity()** - Function that handles API calls to Perplexity AI
 - **AWS Secrets Manager** - Securely stores Perplexity API key
 - **CloudWatch Logs** - Centralized logging with 30-day retention
+
+## TypeScript Development
+
+The Lambda function is implemented in TypeScript with full type safety:
+
+- **Type Definitions**: Uses `@types/node`, `ask-sdk-core`, and `ask-sdk-model` for complete type coverage
+- **Folder Structure**:
+  - `lambda/src/` - TypeScript source files
+  - `lambda/dist/` - Compiled JavaScript (auto-generated, excluded from git)
+- **Build Process**: TypeScript is automatically compiled during deployment via `infrastructure/deploy.sh`
+- **Type Annotations**: All handlers use proper types for `HandlerInput` and `RequestEnvelope`
+- **Runtime**: Compiled to CommonJS (ES2020) for AWS Lambda Node.js 18.x runtime
 
 ## API Integration
 

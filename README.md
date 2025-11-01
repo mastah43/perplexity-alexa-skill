@@ -15,6 +15,9 @@ An Alexa skill that forwards user queries to the Perplexity AI API and reads bac
 - AWS CLI configured with appropriate IAM permissions (see [AWS IAM Requirements](#aws-iam-requirements))
 - ASK CLI installed (`npm install -g ask-cli`)
 - Perplexity AI API key (get from [Perplexity AI Settings](https://www.perplexity.ai/settings/api))
+- **Docker** - Required for AWS CDK deployment bundling
+  - Docker engine installed and running
+  - **macOS users**: Install Colima as a free Docker backend (see [Docker Setup](#docker-setup) below)
 
 ### AWS IAM permissions
 
@@ -32,6 +35,92 @@ See section "AWS IAM Requirements" below for detailed instructions on setting up
 - **Setup scripts**: Interactive, secure API key configuration
 
 See [SECURITY.md](SECURITY.md) for detailed security guidelines.
+
+## Docker Setup
+
+AWS CDK requires Docker for bundling Lambda functions during deployment. On macOS, we recommend using **Colima** as a free, open-source Docker backend (no license required).
+
+### Installing Docker and Colima on macOS
+
+**1. Install Docker CLI and Colima via Homebrew:**
+
+```bash
+brew install docker colima
+```
+
+**2. Start Colima:**
+
+```bash
+colima start
+```
+
+This will:
+
+- Download and start a lightweight Linux VM
+- Configure Docker context automatically
+- Start the Docker daemon
+
+**3. Verify Docker is working:**
+
+```bash
+docker ps
+```
+
+If successful, you'll see a list of running containers (initially empty).
+
+### Colima Management Commands
+
+```bash
+colima start         # Start Colima VM and Docker daemon
+colima stop          # Stop Colima VM
+colima status        # Check if Colima is running
+colima restart       # Restart Colima VM
+colima delete        # Delete Colima VM (removes all data)
+```
+
+### Configuring Colima Resources (Optional)
+
+By default, Colima uses 2 CPUs and 2GB RAM. To customize:
+
+```bash
+colima start --cpu 4 --memory 8
+```
+
+Or edit the configuration:
+
+```bash
+colima stop
+colima start --edit
+```
+
+### Troubleshooting
+
+**If Docker commands fail:**
+
+```bash
+# Check Colima status
+colima status
+
+# Restart Colima
+colima restart
+
+# Verify Docker context
+docker context ls
+```
+
+**For Linux users:**
+
+Install Docker Engine directly:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install docker.io
+
+# Start Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+```
 
 ## Setup
 
