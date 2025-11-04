@@ -1,9 +1,18 @@
 import * as Alexa from 'ask-sdk-core';
 import { RequestEnvelope, Response } from 'ask-sdk-model';
 import { PerplexityResource } from './PerplexityResource';
+import { LanguageStringLoader, LanguageStrings } from './LanguageStrings';
 
-// Initialize Perplexity resource
 const perplexityResource = new PerplexityResource();
+const languageLoader = new LanguageStringLoader();
+
+/**
+ * Helper function to get localized strings from the request
+ */
+function getLocalizedStrings(handlerInput: Alexa.HandlerInput): LanguageStrings {
+    const locale = handlerInput.requestEnvelope.request.locale || 'en-US';
+    return languageLoader.getStrings(locale);
+}
 
 /**
  * Handler for LaunchRequest - when user opens the skill without a specific intent
@@ -13,7 +22,7 @@ const LaunchRequestHandler: Alexa.RequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput: Alexa.HandlerInput): Response {
-        const speakOutput = 'Welcome to Perplexity AI! Ask me any question and I\'ll search for the answer.';
+        const speakOutput = getLocalizedStrings(handlerInput).WELCOME_MESSAGE;
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -34,30 +43,29 @@ const AskPerplexityIntentHandler: Alexa.RequestHandler = {
         const requestEnvelope: RequestEnvelope = handlerInput.requestEnvelope;
         const slots = (requestEnvelope.request as any).intent?.slots;
         const query: string | undefined = slots?.query?.value;
+        const strings = getLocalizedStrings(handlerInput);
 
         if (!query) {
-            const speakOutput = 'I didn\'t catch your question. Please try asking again.';
             return handlerInput.responseBuilder
-                .speak(speakOutput)
-                .reprompt('What would you like to know?')
+                .speak(strings.QUERY_NOT_UNDERSTOOD)
+                .reprompt(strings.QUERY_PROMPT)
                 .getResponse();
         }
 
         try {
             const response = await perplexityResource.query(query);
-            const speakOutput = response || 'I couldn\'t find an answer to your question. Please try asking something else.';
+            const speakOutput = response || strings.NO_ANSWER_FOUND;
 
             return handlerInput.responseBuilder
                 .speak(speakOutput)
-                .reprompt('Do you have another question?')
+                .reprompt(strings.ANOTHER_QUESTION_PROMPT)
                 .getResponse();
         } catch (error) {
             console.error('Error querying Perplexity:', error);
-            const speakOutput = 'Sorry, I encountered an error while searching for your answer. Please try again later.';
 
             return handlerInput.responseBuilder
-                .speak(speakOutput)
-                .reprompt('What would you like to know?')
+                .speak(strings.ERROR_MESSAGE)
+                .reprompt(strings.QUERY_PROMPT)
                 .getResponse();
         }
     }
@@ -72,7 +80,7 @@ const HelpIntentHandler: Alexa.RequestHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput: Alexa.HandlerInput): Response {
-        const speakOutput = 'You can ask me any question and I\'ll search for the answer using Perplexity AI. For example, you can say "Ask me about the weather" or "What is artificial intelligence?"';
+        const speakOutput = getLocalizedStrings(handlerInput).HELP_MESSAGE;
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -91,7 +99,7 @@ const CancelAndStopIntentHandler: Alexa.RequestHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput: Alexa.HandlerInput): Response {
-        const speakOutput = 'Goodbye!';
+        const speakOutput = getLocalizedStrings(handlerInput).GOODBYE_MESSAGE;
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -108,11 +116,11 @@ const FallbackIntentHandler: Alexa.RequestHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
     },
     handle(handlerInput: Alexa.HandlerInput): Response {
-        const speakOutput = 'Sorry, I don\'t know about that. You can ask me any question and I\'ll search for the answer.';
+        const strings = getLocalizedStrings(handlerInput);
 
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt('What would you like to know?')
+            .speak(strings.FALLBACK_MESSAGE)
+            .reprompt(strings.QUERY_PROMPT)
             .getResponse();
     }
 };
@@ -155,7 +163,7 @@ const ErrorHandler: Alexa.ErrorHandler = {
         return true;
     },
     handle(handlerInput: Alexa.HandlerInput, error: Error): Response {
-        const speakOutput = 'Sorry, I had trouble doing what you asked. Please try again.';
+        const speakOutput = getLocalizedStrings(handlerInput).GENERIC_ERROR;
         console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
 
         return handlerInput.responseBuilder

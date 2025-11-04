@@ -4,9 +4,10 @@
   "description": "Lambda function for Perplexity Alexa Skill",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy:assets",
     "build:watch": "tsc --watch",
     "clean": "rm -rf dist",
+    "copy:assets": "cp src/languageStrings.json dist/",
     "prebuild": "npm run clean",
     "test": "jest",
     "test:watch": "jest --watch",

@@ -1,0 +1,26 @@
+{
+  "en": {
+    "WELCOME_MESSAGE": "Welcome to Perplexity AI! Ask me any question and I'll search for the answer.",
+    "QUERY_NOT_UNDERSTOOD": "I didn't catch your question. Please try asking again.",
+    "QUERY_PROMPT": "What would you like to know?",
+    "NO_ANSWER_FOUND": "I couldn't find an answer to your question. Please try asking something else.",
+    "ANOTHER_QUESTION_PROMPT": "Do you have another question?",
+    "ERROR_MESSAGE": "Sorry, I encountered an error while searching for your answer. Please try again later.",
+    "HELP_MESSAGE": "You can ask me any question and I'll search for the answer using Perplexity AI. For example, you can say \"Ask me about the weather\" or \"What is artificial intelligence?\"",
+    "GOODBYE_MESSAGE": "Goodbye!",
+    "FALLBACK_MESSAGE": "Sorry, I don't know about that. You can ask me any question and I'll search for the answer.",
+    "GENERIC_ERROR": "Sorry, I had trouble doing what you asked. Please try again."
+  },
+  "de-DE": {
+    "WELCOME_MESSAGE": "Willkommen bei Perplexity AI! Stellen Sie mir eine Frage und ich werde nach der Antwort suchen.",
+    "QUERY_NOT_UNDERSTOOD": "Ich habe Ihre Frage nicht verstanden. Bitte versuchen Sie es noch einmal.",
+    "QUERY_PROMPT": "Was möchten Sie wissen?",
+    "NO_ANSWER_FOUND": "Ich konnte keine Antwort auf Ihre Frage finden. Bitte versuchen Sie etwas anderes zu fragen.",
+    "ANOTHER_QUESTION_PROMPT": "Haben Sie noch eine Frage?",
+    "ERROR_MESSAGE": "Entschuldigung, bei der Suche nach Ihrer Antwort ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+    "HELP_MESSAGE": "Sie können mir jede Frage stellen und ich werde mit Perplexity AI nach der Antwort suchen. Zum Beispiel können Sie sagen \"Frag mich nach dem Wetter\" oder \"Was ist künstliche Intelligenz?\"",
+    "GOODBYE_MESSAGE": "Auf Wiedersehen!",
+    "FALLBACK_MESSAGE": "Entschuldigung, das weiß ich nicht. Sie können mir jede Frage stellen und ich werde nach der Antwort suchen.",
+    "GENERIC_ERROR": "Entschuldigung, ich hatte Probleme mit Ihrer Anfrage. Bitte versuchen Sie es noch einmal."
+  }
+}
