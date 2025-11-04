@@ -9,7 +9,9 @@
     "HELP_MESSAGE": "You can ask me any question and I'll search for the answer using Perplexity AI. For example, you can say \"Ask me about the weather\" or \"What is artificial intelligence?\"",
     "GOODBYE_MESSAGE": "Goodbye!",
     "FALLBACK_MESSAGE": "Sorry, I don't know about that. You can ask me any question and I'll search for the answer.",
-    "GENERIC_ERROR": "Sorry, I had trouble doing what you asked. Please try again."
+    "GENERIC_ERROR": "Sorry, I had trouble doing what you asked. Please try again.",
+    "CONTINUATION_PROMPT": "Say next to continue.",
+    "NO_MORE_CONTENT": "That was the end of the response. Do you have another question?"
   },
   "de-DE": {
     "WELCOME_MESSAGE": "Willkommen bei Perplexity AI! Stellen Sie mir eine Frage und ich werde nach der Antwort suchen.",
@@ -21,6 +23,8 @@
     "HELP_MESSAGE": "Sie können mir jede Frage stellen und ich werde mit Perplexity AI nach der Antwort suchen. Zum Beispiel können Sie sagen \"Frag mich nach dem Wetter\" oder \"Was ist künstliche Intelligenz?\"",
     "GOODBYE_MESSAGE": "Auf Wiedersehen!",
     "FALLBACK_MESSAGE": "Entschuldigung, das weiß ich nicht. Sie können mir jede Frage stellen und ich werde nach der Antwort suchen.",
-    "GENERIC_ERROR": "Entschuldigung, ich hatte Probleme mit Ihrer Anfrage. Bitte versuchen Sie es noch einmal."
+    "GENERIC_ERROR": "Entschuldigung, ich hatte Probleme mit Ihrer Anfrage. Bitte versuchen Sie es noch einmal.",
+    "CONTINUATION_PROMPT": "Sagen Sie weiter, um fortzufahren.",
+    "NO_MORE_CONTENT": "Das war das Ende der Antwort. Haben Sie noch eine Frage?"
   }
 }

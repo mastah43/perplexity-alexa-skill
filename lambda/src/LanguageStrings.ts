@@ -16,6 +16,8 @@ export interface LanguageStrings {
     GOODBYE_MESSAGE: string;
     FALLBACK_MESSAGE: string;
     GENERIC_ERROR: string;
+    CONTINUATION_PROMPT: string;
+    NO_MORE_CONTENT: string;
 }
 
 /**

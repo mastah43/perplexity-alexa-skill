@@ -1,9 +1,8 @@
 import * as Alexa from 'ask-sdk-core';
-import { RequestEnvelope, Response } from 'ask-sdk-model';
-import { PerplexityResource } from './PerplexityResource';
+import { Response } from 'ask-sdk-model';
+import { AskPerplexityIntentHandler } from './AskPerplexityIntentHandler';
 import { LanguageStringLoader, LanguageStrings } from './LanguageStrings';
 
-const perplexityResource = new PerplexityResource();
 const languageLoader = new LanguageStringLoader();
 
 /**
@@ -32,40 +31,49 @@ const LaunchRequestHandler: Alexa.RequestHandler = {
 };
 
 /**
- * Handler for AskPerplexityIntent - processes user queries through Perplexity API
+ * Handler for AMAZON.NextIntent - continues reading chunked responses
  */
-const AskPerplexityIntentHandler: Alexa.RequestHandler = {
+const NextIntentHandler: Alexa.RequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput): boolean {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AskPerplexityIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.NextIntent';
     },
-    async handle(handlerInput: Alexa.HandlerInput): Promise<Response> {
-        const requestEnvelope: RequestEnvelope = handlerInput.requestEnvelope;
-        const slots = (requestEnvelope.request as any).intent?.slots;
-        const query: string | undefined = slots?.query?.value;
+    handle(handlerInput: Alexa.HandlerInput): Response {
         const strings = getLocalizedStrings(handlerInput);
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 
-        if (!query) {
+        // Check if there are stored response chunks
+        const chunks = sessionAttributes.responseChunks as string[] | undefined;
+        const currentIndex = sessionAttributes.currentChunkIndex as number | undefined;
+
+        if (!chunks || currentIndex === undefined || currentIndex >= chunks.length - 1) {
+            // No more content to read
             return handlerInput.responseBuilder
-                .speak(strings.QUERY_NOT_UNDERSTOOD)
+                .speak(strings.NO_MORE_CONTENT)
                 .reprompt(strings.QUERY_PROMPT)
                 .getResponse();
         }
 
-        try {
-            const response = await perplexityResource.query(query);
-            const speakOutput = response || strings.NO_ANSWER_FOUND;
+        // Move to next chunk
+        const nextIndex = currentIndex + 1;
+        sessionAttributes.currentChunkIndex = nextIndex;
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
 
+        const nextChunk = chunks[nextIndex];
+
+        // Check if this is the last chunk
+        if (nextIndex >= chunks.length - 1) {
+            // Last chunk - no continuation prompt
             return handlerInput.responseBuilder
-                .speak(speakOutput)
+                .speak(nextChunk)
                 .reprompt(strings.ANOTHER_QUESTION_PROMPT)
                 .getResponse();
-        } catch (error) {
-            console.error('Error querying Perplexity:', error);
-
+        } else {
+            // More chunks remaining - add continuation prompt
+            const speakOutput = `${nextChunk} ${strings.CONTINUATION_PROMPT}`;
             return handlerInput.responseBuilder
-                .speak(strings.ERROR_MESSAGE)
-                .reprompt(strings.QUERY_PROMPT)
+                .speak(speakOutput)
+                .reprompt(strings.CONTINUATION_PROMPT)
                 .getResponse();
         }
     }
@@ -180,6 +188,7 @@ export const handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         AskPerplexityIntentHandler,
+        NextIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
