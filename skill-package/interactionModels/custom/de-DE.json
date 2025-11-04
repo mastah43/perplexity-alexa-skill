@@ -32,15 +32,15 @@
                         }
                     ],
                     "samples": [
-                        "help me understand {query}",
-                        "can you tell me {query}",
-                        "I want to know about {query}",
-                        "look up {query}",
-                        "find information about {query}",
-                        "explain {query}",
-                        "what is {query}",
-                        "tell me about {query}",
-                        "search for {query}"
+                        "hilf mir {query} zu verstehen",
+                        "kannst du mir {query} erzählen",
+                        "ich möchte mehr über {query} wissen",
+                        "schau nach {query}",
+                        "finde Informationen über {query}",
+                        "erkläre {query}",
+                        "was ist {query}",
+                        "erzähl mir von {query}",
+                        "suche nach {query}"
                     ]
                 },
                 {
