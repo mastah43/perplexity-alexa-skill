@@ -46,12 +46,13 @@ export class PerplexityAlexaSkillStack extends cdk.Stack {
           command: [
             'bash', '-c',
             [
-              'echo "Installing production dependencies..."',
-              'cp package.json package-lock.json /asset-output/',
-              'cd /asset-output',
-              'npm ci --omit=dev --quiet --cache /tmp/npm-cache',
               'echo "Copying compiled Lambda code..."',
               'cp -r /asset-input/dist/* /asset-output/',
+              'echo "Copying package files..."',
+              'cp /asset-input/package.json /asset-input/package-lock.json /asset-output/',
+              'echo "Installing production dependencies..."',
+              'cd /asset-output',
+              'npm ci --omit=dev --quiet --cache /tmp/npm-cache',
               'echo "Lambda bundle complete"',
             ].join(' && '),
           ],

@@ -3,6 +3,7 @@ import { Response, RequestEnvelope } from 'ask-sdk-model';
 import { PerplexityResource } from './PerplexityResource';
 import { LanguageStringLoader, LanguageStrings } from './LanguageStrings';
 import { chunkText } from './chunkText';
+import { transformPerplexityOutputForAlexa } from './transformPerplexityOutputForAlexa';
 
 const perplexityResource = new PerplexityResource();
 const languageLoader = new LanguageStringLoader();
@@ -45,7 +46,7 @@ export const AskPerplexityIntentHandler: Alexa.RequestHandler = {
 
         try {
             const response = await perplexityResource.query(query);
-            const fullResponse = response || strings.NO_ANSWER_FOUND;
+            const fullResponse = transformPerplexityOutputForAlexa(response) || strings.NO_ANSWER_FOUND;
 
             // Check if response exceeds character limit
             if (fullResponse.length > MAX_CHUNK_SIZE) {
