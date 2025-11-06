@@ -1,6 +1,6 @@
 {
   "en": {
-    "WELCOME_MESSAGE": "Welcome to Perplexity AI! Ask me any question and I'll search for the answer.",
+    "WELCOME_MESSAGE": "Ask a question to Perplexity.",
     "QUERY_NOT_UNDERSTOOD": "I didn't catch your question. Please try asking again.",
     "QUERY_PROMPT": "What would you like to know?",
     "NO_ANSWER_FOUND": "I couldn't find an answer to your question. Please try asking something else.",
@@ -14,17 +14,17 @@
     "NO_MORE_CONTENT": "That was the end of the response. Do you have another question?"
   },
   "de-DE": {
-    "WELCOME_MESSAGE": "Willkommen bei Perplexity AI! Stellen Sie mir eine Frage und ich werde nach der Antwort suchen.",
-    "QUERY_NOT_UNDERSTOOD": "Ich habe Ihre Frage nicht verstanden. Bitte versuchen Sie es noch einmal.",
-    "QUERY_PROMPT": "Was möchten Sie wissen?",
-    "NO_ANSWER_FOUND": "Ich konnte keine Antwort auf Ihre Frage finden. Bitte versuchen Sie etwas anderes zu fragen.",
-    "ANOTHER_QUESTION_PROMPT": "Haben Sie noch eine Frage?",
-    "ERROR_MESSAGE": "Entschuldigung, bei der Suche nach Ihrer Antwort ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
-    "HELP_MESSAGE": "Sie können mir jede Frage stellen und ich werde mit Perplexity AI nach der Antwort suchen. Zum Beispiel können Sie sagen \"Frag mich nach dem Wetter\" oder \"Was ist künstliche Intelligenz?\"",
+    "WELCOME_MESSAGE": "Stelle Perplexity eine Frage.",
+    "QUERY_NOT_UNDERSTOOD": "Ich habe Deine Frage nicht verstanden. Bitte versuche es nochmal.",
+    "QUERY_PROMPT": "Was möchtest Du wissen?",
+    "NO_ANSWER_FOUND": "Ich konnte keine Antwort auf Deine Frage finden. Bitte versuchen Sie etwas anderes zu fragen.",
+    "ANOTHER_QUESTION_PROMPT": "Hast Du noch eine Frage?",
+    "ERROR_MESSAGE": "Entschuldigung, bei der Suche nach Deiner Antwort ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.",
+    "HELP_MESSAGE": "Du kannst mir jede Frage stellen und ich werde mit Perplexity AI nach der Antwort suchen. Zum Beispiel kannst Du sagen \"Frag mich nach dem Wetter\" oder \"Was ist künstliche Intelligenz?\"",
     "GOODBYE_MESSAGE": "Auf Wiedersehen!",
-    "FALLBACK_MESSAGE": "Entschuldigung, das weiß ich nicht. Sie können mir jede Frage stellen und ich werde nach der Antwort suchen.",
-    "GENERIC_ERROR": "Entschuldigung, ich hatte Probleme mit Ihrer Anfrage. Bitte versuchen Sie es noch einmal.",
-    "CONTINUATION_PROMPT": "Sagen Sie weiter, um fortzufahren.",
-    "NO_MORE_CONTENT": "Das war das Ende der Antwort. Haben Sie noch eine Frage?"
+    "FALLBACK_MESSAGE": "Entschuldigung, das weiß ich nicht. Du kannst mir jede Frage stellen und ich werde nach der Antwort suchen.",
+    "GENERIC_ERROR": "Entschuldigung, ich hatte Probleme mit Deiner Anfrage. Bitte versuche es noch einmal.",
+    "CONTINUATION_PROMPT": "Sage weiter, um fortzufahren.",
+    "NO_MORE_CONTENT": "Das war das Ende der Antwort. Hast Du  noch eine Frage?"
   }
 }
