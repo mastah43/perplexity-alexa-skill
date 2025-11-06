@@ -35,6 +35,7 @@ export const AskPerplexityIntentHandler: Alexa.RequestHandler = {
         const requestEnvelope: RequestEnvelope = handlerInput.requestEnvelope;
         const slots = (requestEnvelope.request as any).intent?.slots;
         const query: string | undefined = slots?.query?.value;
+        const locale = requestEnvelope.request.locale || 'en-US';
         const strings = getLocalizedStrings(handlerInput);
 
         if (!query) {
@@ -45,7 +46,7 @@ export const AskPerplexityIntentHandler: Alexa.RequestHandler = {
         }
 
         try {
-            const response = await perplexityResource.query(query);
+            const response = await perplexityResource.query(query, locale);
             const fullResponse = transformPerplexityOutputForAlexa(response) || strings.NO_ANSWER_FOUND;
 
             // Check if response exceeds character limit

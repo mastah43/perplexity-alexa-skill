@@ -25,12 +25,15 @@ export class PerplexityResource {
     /**
      * Query Perplexity AI API
      * @param query - The user's question
+     * @param locale - Optional locale (e.g., 'en-US', 'de-DE')
      * @returns The AI-generated response
      */
-    async query(query: string): Promise<string> {
+    async query(query: string, locale?: string): Promise<string> {
         const apiKey = await this.getApiKey();
 
-        const response = await axios.post<PerplexityResponse>(this.apiUrl, {
+        const language = locale ? this.convertLocaleToLanguage(locale) : undefined;
+
+        const queryInput = {
             model: this.model,
             messages: [
                 {
@@ -39,15 +42,30 @@ export class PerplexityResource {
                 }
             ],
             max_tokens: this.maxTokens,
-            temperature: this.temperature
-        }, {
+            temperature: this.temperature,
+            ...(language && { preferred_language: language })
+        };
+        console.info('Perplexity query input: ', JSON.stringify(queryInput, null, 2));
+
+        const response = await axios.post<PerplexityResponse>(this.apiUrl, queryInput, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json'
             }
         });
 
-        return response.data.choices[0].message.content;
+        const messageContent = response.data.choices[0].message.content;
+        console.info('Perplexity output: ', messageContent);
+        return messageContent;
+    }
+
+    /**
+     * Convert locale to language code
+     * @param locale - locale (e.g., 'en-US', 'en-GB', 'de-DE')
+     * @returns Language code (e.g., 'en', 'de')
+     */
+    private convertLocaleToLanguage(locale: string): string {
+        return locale.split('-')[0];
     }
 
     /**
