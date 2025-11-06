@@ -19,7 +19,6 @@ export class PerplexityResource {
     private apiKey: string | null = null;
     private readonly apiUrl = 'https://api.perplexity.ai/chat/completions';
     private readonly model = 'sonar';
-    private readonly maxTokens = 150;
     private readonly temperature = 0.2;
 
     /**
@@ -41,7 +40,6 @@ export class PerplexityResource {
                     content: query
                 }
             ],
-            max_tokens: this.maxTokens,
             temperature: this.temperature,
             ...(language && { preferred_language: language })
         };

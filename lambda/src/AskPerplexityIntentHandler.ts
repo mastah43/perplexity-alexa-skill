@@ -9,7 +9,7 @@ const perplexityResource = new PerplexityResource();
 const languageLoader = new LanguageStringLoader();
 
 // Alexa's text-to-speech character limit identified in tests with german language
-const ALEXA_RESPONSE_CHAR_LIMIT = 550;
+const ALEXA_RESPONSE_CHAR_LIMIT = 7500;
 // Reserve space for continuation prompt
 const CONTINUATION_PROMPT_BUFFER = 50;
 // Maximum chunk size for each response
