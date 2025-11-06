@@ -1,6 +1,7 @@
 module.exports = {
   testEnvironment: 'node',
-  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
+  rootDir: '..',
+  testMatch: ['**/test/**/*.test.js'],
   collectCoverageFrom: [
     'lambda/**/*.js',
     '!lambda/node_modules/**',
